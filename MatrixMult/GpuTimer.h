@@ -1,8 +1,6 @@
 #ifndef GPU_TIMER_H__
 #define GPU_TIMER_H__
 
-
-
 struct GpuTimer
 {
   cudaEvent_t start;
