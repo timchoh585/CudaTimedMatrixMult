@@ -45,6 +45,9 @@ void onDevice(Matrix<float> h_a, Matrix<float> h_b, Matrix<float> h_c)
 	d_c.width = h_c.width;
 	d_c.height = h_c.height;
 
+	dim3 GridBlocks(8, 8);
+	dim3 ThreadsBlocks(8, 8);
+
 	GpuTimer timer;
 	timer.Start();
 
@@ -57,17 +60,32 @@ void onDevice(Matrix<float> h_a, Matrix<float> h_b, Matrix<float> h_c)
 	HANDLER_ERROR_ERR(cudaMemcpy(d_a.elements, h_a.elements, ARRAY_BYTES, cudaMemcpyHostToDevice));
 	HANDLER_ERROR_ERR(cudaMemcpy(d_b.elements, h_b.elements, ARRAY_BYTES, cudaMemcpyHostToDevice));
 
-	dim3 GridBlocks(8, 8);
-	dim3 ThreadsBlocks(8, 8);
-
-	matrixMultiplicationKernel<<<GridBlocks, ThreadsBlocks>>>(d_a, d_b, d_c);
+	matrixMultiplicationKernel<<<8, 64>>>(d_a, d_b, d_c);
 	HANDLER_ERROR_MSG("kernel panic!!!");
 
 	HANDLER_ERROR_ERR(cudaMemcpy(h_c.elements, d_c.elements, ARRAY_BYTES, cudaMemcpyDeviceToHost));
 
 	timer.Stop();
 
-	printf("Time :  %f ms\n", timer.Elapsed());
+	printf("Time without blocking:  %f ms\n", timer.Elapsed());
+
+	timer.Start();
+
+	HANDLER_ERROR_ERR(cudaMalloc((void**)&d_a.elements, ARRAY_BYTES));
+	HANDLER_ERROR_ERR(cudaMalloc((void**)&d_b.elements, ARRAY_BYTES));
+	HANDLER_ERROR_ERR(cudaMalloc((void**)&d_c.elements, ARRAY_BYTES));
+
+	HANDLER_ERROR_ERR(cudaMemcpy(d_a.elements, h_a.elements, ARRAY_BYTES, cudaMemcpyHostToDevice));
+	HANDLER_ERROR_ERR(cudaMemcpy(d_b.elements, h_b.elements, ARRAY_BYTES, cudaMemcpyHostToDevice));
+
+	matrixMultiplicationKernel <<<GridBlocks, ThreadsBlocks>>>(d_a, d_b, d_c);
+	HANDLER_ERROR_MSG("kernel panic!!!");
+
+	HANDLER_ERROR_ERR(cudaMemcpy(h_c.elements, d_c.elements, ARRAY_BYTES, cudaMemcpyDeviceToHost));
+
+	timer.Stop();
+
+	printf("Time with blocking:  %f ms\n", timer.Elapsed());
 
 	HANDLER_ERROR_ERR(cudaFree(d_a.elements));
 	HANDLER_ERROR_ERR(cudaFree(d_b.elements));
@@ -105,10 +123,6 @@ void test()
 	}
 
 	onDevice(h_a, h_b, h_c);
-
-	float count = h_c.height * h_c.width;
-
-	printf("Finished execution with %f computations.\n", count);
 
 	//printf("-: successful execution :-\n");
 

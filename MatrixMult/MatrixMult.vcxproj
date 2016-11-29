@@ -20,7 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <CudaCompile Include="multiply.cu" />
-    <CudaCompile Include="TextCuda.cu" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\..\..\Downloads\CUDA_by_practice-master\CUDA_by_practice-master\07_Measuring_execution_time\Source_code\02matrix_multiplication_S\Error.h" />
