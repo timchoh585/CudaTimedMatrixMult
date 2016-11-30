@@ -1,0 +1,6 @@
+C:\Users\timch\Desktop\Fall 2016\CS 341\CUDA\CudaTimedMatrixMult\MatrixMultCLI\bin\Release\MatrixMultCLI.exe.config
+C:\Users\timch\Desktop\Fall 2016\CS 341\CUDA\CudaTimedMatrixMult\MatrixMultCLI\bin\Release\MatrixMultCLI.exe
+C:\Users\timch\Desktop\Fall 2016\CS 341\CUDA\CudaTimedMatrixMult\MatrixMultCLI\bin\Release\MatrixMultCLI.pdb
+C:\Users\timch\Desktop\Fall 2016\CS 341\CUDA\CudaTimedMatrixMult\MatrixMultCLI\obj\Release\MatrixMultCLI.csprojResolveAssemblyReference.cache
+C:\Users\timch\Desktop\Fall 2016\CS 341\CUDA\CudaTimedMatrixMult\MatrixMultCLI\obj\Release\MatrixMultCLI.exe
+C:\Users\timch\Desktop\Fall 2016\CS 341\CUDA\CudaTimedMatrixMult\MatrixMultCLI\obj\Release\MatrixMultCLI.pdb
