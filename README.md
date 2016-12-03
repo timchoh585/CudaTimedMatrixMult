@@ -12,3 +12,5 @@ Open up the solution in Visual Studio.
 Both codes are in the same sln project.
 
 You will need Nvidia's CUDA ready card in order to run as well as the drivers.
+
+Slides:https://docs.google.com/a/uic.edu/presentation/d/1KBROq5IQuKRm1ptZpJI3oqvILKrS3ZWN3AvWI9HSWI8/edit?usp=sharing
